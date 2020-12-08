@@ -1,18 +1,68 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <section class="contacts">
+    <!-- Contact List -->
+    <ContactList
+      :contacts="contacts"
+    />
+
+    <div class="contacts__decorate-wrapper"></div>
+  </section>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import ContactList from "@/components/ContactList";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    ContactList
+  },
+  data() {
+    return {
+      contacts: [
+        {
+          id: 1,
+          content: [
+            {
+              name: "name",
+              value: "Ivan"
+            }
+          ]
+        },
+        {
+          id: 2,
+          content: [
+            {
+              name: "name",
+              value: "Andrey"
+            }
+          ]
+        },
+        {
+          id: 3,
+          content: [
+            {
+              name: "name",
+              value: "Boris"
+            }
+          ]
+        }
+      ]
+    };
   }
 };
 </script>
+
+<style lang="scss">
+.contacts {
+  display: flex;
+
+  &__decorate-wrapper {
+    width: 50%;
+    background-image: "../assets/logo.png";
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+}
+</style>
