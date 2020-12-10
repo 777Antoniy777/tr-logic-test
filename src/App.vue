@@ -3,13 +3,76 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
     </div>
-    <router-view />
+    <router-view
+      :contacts="contacts"
+      :addContact="addContact"
+      :removeContact="removeContact"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  data() {
+    return {
+      contacts: [
+        {
+          id: 1,
+          content: [
+            {
+              id: 1,
+              name: "Имя",
+              value: "Иван"
+            }
+          ]
+        },
+        {
+          id: 2,
+          content: [
+            {
+              id: 1,
+              name: "Имя",
+              value: "Андрей"
+            }
+          ]
+        },
+        {
+          id: 3,
+          content: [
+            {
+              id: 1,
+              name: "Имя",
+              value: "Борис"
+            }
+          ]
+        }
+      ],
+      currentContact: null
+    };
+  },
+  methods: {
+    addContact(name) {
+      const contactsLength = this.contacts.length;
+
+      if (name.trim()) {
+        const newContact = {
+          id: this.contacts[contactsLength - 1].id + 1,
+          content: [
+            {
+              name: "name",
+              value: name
+            }
+          ]
+        };
+
+        this.contacts.push(newContact);
+      }
+    },
+    removeContact(id) {
+      this.contacts = this.contacts.filter(elem => elem.id !== id);
+    }
+  }
 };
 </script>
 

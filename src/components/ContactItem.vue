@@ -1,10 +1,8 @@
 <template>
   <li class="contacts__item">
-    <router-link :to="{ name: 'Contact', params: { id: item.id } }">{{
-      item.content[0].value
-    }}</router-link>
-    <!-- id="{{ val }}" -->
-    <!-- to="/contact/:id" -->
+    <router-link :to="{ name: 'Contact', params: { id: item.id } }">
+      {{ item.content[0].value }}
+    </router-link>
 
     <div class="contacts__button-wrapper">
       <!-- Approve Delete -->
@@ -74,6 +72,7 @@ export default {
     border: 1px solid gray;
 
     a {
+      max-width: 150px;
       padding-right: 20px;
       text-decoration: none;
       color: black;

@@ -1,36 +1,47 @@
 <template>
-  <div class="contacts__form-wrapper">
+  <div class="contact__form-wrapper">
     <form
-      class="contacts__form"
+      class="contact__form"
       action="#"
       method="POST"
       @submit.prevent="handleFormSubmit"
     >
-      <div class="contacts__field-wrapper">
-        <label for="name">Имя:</label>
+      <div class="contact__field-wrapper">
+        <label for="title">Название:</label>
         <input
-          id="name"
+          id="title"
           type="text"
-          name="name"
-          placeholder="Введите имя"
-          v-model="name"
+          name="title"
+          placeholder="Введите название"
+          v-model="title"
         />
       </div>
 
-      <button class="contacts__button" type="submit">Добавить</button>
+      <div class="contact__field-wrapper">
+        <label for="value">Значение:</label>
+        <input
+          id="value"
+          type="text"
+          name="value"
+          placeholder="Введите значение"
+          v-model="value"
+        />
+      </div>
+
+      <button class="contact__button" type="submit">Добавить</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ContactForm",
+  name: "ContactInfoForm",
   props: {
-    addContact: Function
   },
   data() {
     return {
-      name: ""
+      title: "",
+      value: ""
     };
   },
   methods: {
@@ -44,9 +55,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contacts {
+.contact {
   &__form-wrapper {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     padding: 10px;
     background-color: lightgray;
   }
@@ -54,16 +65,17 @@ export default {
   &__form {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
   }
 
   &__field-wrapper {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 10px;
 
     label {
-      margin-right: 20px;
+      margin-right: auto;
     }
 
     input {
@@ -80,6 +92,7 @@ export default {
     background-color: lightskyblue;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
 }
 </style>

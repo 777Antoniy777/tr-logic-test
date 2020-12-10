@@ -22,60 +22,10 @@ export default {
     ContactList,
     ContactForm
   },
-  data() {
-    return {
-      contacts: [
-        {
-          id: 1,
-          content: [
-            {
-              name: "name",
-              value: "Ivan"
-            }
-          ]
-        },
-        {
-          id: 2,
-          content: [
-            {
-              name: "name",
-              value: "Andrey"
-            }
-          ]
-        },
-        {
-          id: 3,
-          content: [
-            {
-              name: "name",
-              value: "Boris"
-            }
-          ]
-        }
-      ]
-    };
-  },
-  methods: {
-    addContact(name) {
-      const contactsLength = this.contacts.length;
-
-      if (name.trim()) {
-        const newContact = {
-          id: this.contacts[contactsLength - 1].id + 1,
-          content: [
-            {
-              name: "name",
-              value: name
-            }
-          ]
-        };
-
-        this.contacts.push(newContact);
-      }
-    },
-    removeContact(id) {
-      this.contacts = this.contacts.filter(elem => elem.id !== id);
-    }
+  props: {
+    contacts: Array,
+    addContact: Function,
+    removeContact: Function
   }
 };
 </script>

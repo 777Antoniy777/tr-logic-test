@@ -1,19 +1,56 @@
 <template>
-  <div>
-    <h2>Content</h2>
+  <div class="contact">
+    <h2 class="contact__title">
+      Подробная информация контакта {{ currentContact.content[0].value }}
+    </h2>
+
+    <!-- Contact Info Form -->
+    <ContactInfoForm />
+
+    <!-- Contact Info List -->
+    <ContactInfoList :content="currentContact.content" />
   </div>
 </template>
 
 <script>
+import ContactInfoList from "@/components/ContactInfoList";
+import ContactInfoForm from "@/components/ContactInfoForm";
+
 export default {
-  name: "Contact"
-}
+  name: "Contact",
+  components: {
+    ContactInfoList,
+    ContactInfoForm
+  },
+  props: {
+    contacts: Array,
+    getCurrentContact: Function
+  },
+  data() {
+    return {
+      currentContact: null
+    };
+  },
+  mounted() {
+    const id = +this.$route.params.id;
+
+    this.currentContact = this.contacts.find(elem => elem.id === id);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-div {
+.contact {
+  max-width: 600px;
   width: 100%;
   min-height: 400px;
-  background-color: pink;
+  margin: 0 auto;
+  padding-top: 20px;
+  background-color: lightgray;
+
+  &__title {
+    margin: 0;
+    padding-bottom: 40px;
+  }
 }
 </style>
