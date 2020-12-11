@@ -30,9 +30,10 @@ export default {
   &__delete-wrapper {
     display: flex;
     align-items: center;
+    min-width: 180px;
     max-width: 200px;
     min-height: 30px;
-    width: 100%;
+    width: auto;
     margin-right: 15px;
     padding: 5px;
     background-color: transparent;
@@ -49,6 +50,7 @@ export default {
   &__buttons-wrapper {
     display: flex;
     align-items: center;
+    margin-left: auto;
 
     button {
       width: 30px;

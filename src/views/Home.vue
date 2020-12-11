@@ -44,8 +44,8 @@ export default {
 
   &__decorate-wrapper {
     width: 50%;
-    background-image: "../assets/logo.png";
-    background-position: 0 0;
+    background-image: url("../assets/logo.png");
+    background-position: center;
     background-repeat: no-repeat;
   }
 }

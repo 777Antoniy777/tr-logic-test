@@ -24,8 +24,9 @@ export default {
 <style lang="scss" scoped>
 .contact {
   &__list-wrapper {
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
+    padding: 0 20px;
   }
 
   &__list {

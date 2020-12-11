@@ -1,11 +1,11 @@
 <template>
-  <div class="contact">
+  <div class="contact" v-if="currentContact">
     <h2 class="contact__title">
       Подробная информация контакта {{ currentContact.content[0].value }}
     </h2>
 
     <!-- Contact Info Form -->
-    <ContactInfoForm />
+    <ContactInfoForm :id="currentContact.id" :addContactInfo="addContactInfo" />
 
     <!-- Contact Info List -->
     <ContactInfoList :content="currentContact.content" />
@@ -24,7 +24,7 @@ export default {
   },
   props: {
     contacts: Array,
-    getCurrentContact: Function
+    addContactInfo: Function
   },
   data() {
     return {

@@ -37,6 +37,8 @@
 export default {
   name: "ContactInfoForm",
   props: {
+    id: Number,
+    addContactInfo: Function
   },
   data() {
     return {
@@ -46,9 +48,12 @@ export default {
   },
   methods: {
     handleFormSubmit() {
-      this.addContact(this.name);
+      this.addContactInfo(this.id, this.title, this.value);
 
-      this.name = "";
+      if (this.title && this.value) {
+        this.title = "";
+        this.value = "";
+      }
     }
   }
 };
@@ -76,6 +81,7 @@ export default {
 
     label {
       margin-right: auto;
+      cursor: pointer;
     }
 
     input {

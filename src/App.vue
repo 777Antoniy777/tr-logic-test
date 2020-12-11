@@ -7,6 +7,7 @@
       :contacts="contacts"
       :addContact="addContact"
       :removeContact="removeContact"
+      :addContactInfo="addContactInfo"
     />
   </div>
 </template>
@@ -47,8 +48,7 @@ export default {
             }
           ]
         }
-      ],
-      currentContact: null
+      ]
     };
   },
   methods: {
@@ -71,6 +71,21 @@ export default {
     },
     removeContact(id) {
       this.contacts = this.contacts.filter(elem => elem.id !== id);
+    },
+    addContactInfo(id, title, value) {
+      const contactInfo = this.contacts.find(elem => elem.id === id);
+      const { content } = contactInfo;
+      const contentLength = content.length;
+
+      if (title.trim() && value.trim()) {
+        const newContactInfo = {
+          id: content[contentLength - 1].id + 1,
+          name: title,
+          value: value
+        };
+
+        content.push(newContactInfo);
+      }
     }
   }
 };

@@ -14,7 +14,6 @@
       />
 
       <button
-        class="contacts__button"
         type="button"
         aria-label="Удалить контакт"
         @click.prevent="handleDeleteButtonClick"
@@ -83,15 +82,15 @@ export default {
     display: flex;
     align-items: center;
     margin-left: auto;
-  }
 
-  &__button {
-    width: 24px;
-    height: 30px;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+    button {
+      width: 24px;
+      height: 30px;
+      padding: 0;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
   }
 }
 </style>
