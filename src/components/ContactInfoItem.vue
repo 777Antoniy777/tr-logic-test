@@ -6,9 +6,20 @@
     </div>
 
     <div class="contact__buttons-wrapper">
+      <!-- Approve Delete -->
+      <ApproveDelete
+        v-if="approveStatus"
+        :description="description"
+        :handleCloseButtonClick="handleCloseButtonClick"
+        :handleAgreeButtonClick="handleAgreeButtonClick"
+      />
+
       <button
         type="button"
         aria-label="Редактировать контакт"
+        data-value="edit"
+        data-description="Сохранить?"
+        @click.prevent="handleButtonClick"
       >
         <md-icon>edit</md-icon>
       </button>
@@ -16,14 +27,13 @@
       <button
         type="button"
         aria-label="Удалить контакт"
-        @click.prevent="handleDeleteButtonClick"
+        data-value="delete"
+        data-description="Точно удалить?"
+        @click.prevent="handleButtonClick"
       >
         <md-icon>delete</md-icon>
       </button>
     </div>
-
-    <!-- Approve Delete -->
-    <ApproveDelete />
   </li>
 </template>
 
@@ -37,6 +47,35 @@ export default {
   },
   props: {
     item: Object
+  },
+  data() {
+    return {
+      approveStatus: false,
+      buttonData: "",
+      description: ""
+    };
+  },
+  methods: {
+    handleButtonClick(evt) {
+      const target = evt.target;
+      const button = target.closest("button");
+      const dataValue = button.dataset.value;
+      const dataDescription = button.dataset.description;
+
+      this.buttonData = dataValue;
+      this.description = dataDescription;
+      this.approveStatus = true;
+    },
+    handleCloseButtonClick() {
+      this.approveStatus = false;
+    },
+    handleAgreeButtonClick() {
+      if (this.buttonData === "delete") {
+        this.removeContact(this.item.id);
+      }
+
+      this.approveStatus = false;
+    }
   }
 };
 </script>
@@ -65,6 +104,7 @@ export default {
   &__info-wrapper,
   &__buttons-wrapper {
     display: flex;
+    align-items: center;
     width: 50%;
   }
 
@@ -79,7 +119,7 @@ export default {
       border: none;
       cursor: pointer;
 
-      &:first-child {
+      &:first-of-type {
         margin-right: 10px;
       }
     }

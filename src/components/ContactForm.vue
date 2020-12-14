@@ -46,9 +46,8 @@ export default {
 <style lang="scss" scoped>
 .contacts {
   &__form-wrapper {
-    margin-bottom: 40px;
     padding: 10px;
-    background-color: lightgray;
+    border-bottom: 1px solid black;
   }
 
   &__form {
@@ -63,10 +62,13 @@ export default {
     margin-right: 20px;
 
     label {
-      margin-right: 20px;
+      margin-right: 10px;
     }
 
     input {
+      min-width: 130px;
+      max-width: 177px;
+      width: 100%;
       height: 30px;
     }
   }
@@ -80,6 +82,7 @@ export default {
     background-color: lightskyblue;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
   }
 }
 </style>

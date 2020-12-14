@@ -33,20 +33,25 @@ export default {
 <style lang="scss" scoped>
 .contacts {
   display: flex;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
   background-color: white;
+  box-shadow: 0 5px 20px 0 black;
 
   &__content-wrapper {
     width: 50%;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid black;
   }
 
   &__decorate-wrapper {
     width: 50%;
-    background-image: url("../assets/logo.png");
+    background-image: url("../assets/contact.svg");
+    background-size: 150px 150px;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #59a5e0;
   }
 }
 </style>

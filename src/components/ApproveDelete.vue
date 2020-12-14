@@ -1,6 +1,7 @@
 <template>
   <div class="contacts__delete-wrapper">
-    <p>Точно удалить?</p>
+    <!-- <p>Точно удалить?</p> -->
+    <p>{{ description }}</p>
 
     <div class="contacts__buttons-wrapper">
       <button type="button" @click.prevent="handleAgreeButtonClick">
@@ -18,7 +19,7 @@
 export default {
   name: "ApproveDelete",
   props: {
-    deleteStatus: Boolean,
+    description: String,
     handleCloseButtonClick: Function,
     handleAgreeButtonClick: Function
   }

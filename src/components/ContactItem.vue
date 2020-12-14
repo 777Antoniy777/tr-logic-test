@@ -8,7 +8,6 @@
       <!-- Approve Delete -->
       <ApproveDelete
         v-if="deleteStatus"
-        :deleteStatus="deleteStatus"
         :handleCloseButtonClick="handleCloseButtonClick"
         :handleAgreeButtonClick="handleAgreeButtonClick"
       />
@@ -68,7 +67,11 @@ export default {
     align-items: center;
     min-height: 70px;
     padding: 10px;
-    border: 1px solid gray;
+    border-bottom: 1px solid black;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     a {
       max-width: 150px;
