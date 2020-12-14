@@ -1,19 +1,11 @@
 <template>
   <li class="contact__item">
     <div class="contact__info-wrapper">
-      <span class="contact__property">{{ item.name }}</span>
+      <span class="contact__property">{{ item.name }}:</span>
       <span class="contact__value">{{ item.value }}</span>
     </div>
 
     <div class="contact__buttons-wrapper">
-      <!-- Approve Delete -->
-      <ApproveDelete
-        v-if="approveStatus"
-        :description="description"
-        :handleCloseButtonClick="handleCloseButtonClick"
-        :handleAgreeButtonClick="handleAgreeButtonClick"
-      />
-
       <button
         type="button"
         aria-label="Редактировать контакт"
@@ -29,24 +21,36 @@
         aria-label="Удалить контакт"
         data-value="delete"
         data-description="Точно удалить?"
+        v-if="item.id !== 1"
         @click.prevent="handleButtonClick"
       >
         <md-icon>delete</md-icon>
       </button>
     </div>
+
+    <div class="contact__approve-wrapper" v-if="approveStatus">
+      <!-- Approve -->
+      <Approve
+        :description="description"
+        :handleCloseButtonClick="handleCloseButtonClick"
+        :handleAgreeButtonClick="handleAgreeButtonClick"
+      />
+    </div>
   </li>
 </template>
 
 <script>
-import ApproveDelete from "@/components/ApproveDelete";
+import Approve from "@/components/Approve";
 
 export default {
   name: "ContactInfoItem",
   components: {
-    ApproveDelete
+    Approve
   },
   props: {
-    item: Object
+    id: Number,
+    item: Object,
+    removeContactInfo: Function
   },
   data() {
     return {
@@ -71,7 +75,7 @@ export default {
     },
     handleAgreeButtonClick() {
       if (this.buttonData === "delete") {
-        this.removeContact(this.item.id);
+        this.removeContactInfo(this.id, this.item.id);
       }
 
       this.approveStatus = false;
@@ -85,6 +89,8 @@ export default {
   &__item {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    min-height: 51px;
     margin-bottom: 10px;
     padding: 10px 20px;
     border-bottom: 1px solid black;
@@ -94,10 +100,14 @@ export default {
     }
 
     span {
-      width: 50%;
       font-size: 14px;
       line-height: 16px;
       text-align: left;
+
+      &:first-child {
+        padding-right: 10px;
+        font-weight: 700;
+      }
     }
   }
 
@@ -119,9 +129,18 @@ export default {
       border: none;
       cursor: pointer;
 
-      &:first-of-type {
-        margin-right: 10px;
+      &:nth-of-type(2) {
+        margin-left: 10px;
       }
+    }
+  }
+
+  &__approve-wrapper {
+    width: 100%;
+    margin-top: 10px;
+
+    .approve {
+      max-width: none;
     }
   }
 }

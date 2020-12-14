@@ -62,29 +62,24 @@ export default {
 <style lang="scss" scoped>
 .contact {
   &__form-wrapper {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: lightgray;
-  }
-
-  &__form {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    padding: 10px 47px;
   }
 
   &__field-wrapper {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-bottom: 10px;
 
     label {
-      margin-right: auto;
+      margin-right: 10px;
       cursor: pointer;
     }
 
     input {
+      min-width: 130px;
+      max-width: 177px;
+      width: 100%;
       height: 30px;
     }
   }
@@ -94,6 +89,8 @@ export default {
     justify-content: center;
     align-items: center;
     min-height: 30px;
+    width: 100%;
+    margin-left: auto;
     padding: 5px 10px;
     background-color: lightskyblue;
     border: none;

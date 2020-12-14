@@ -1,9 +1,8 @@
 <template>
-  <div class="contacts__delete-wrapper">
-    <!-- <p>Точно удалить?</p> -->
+  <div class="approve">
     <p>{{ description }}</p>
 
-    <div class="contacts__buttons-wrapper">
+    <div class="approve__buttons-wrapper">
       <button type="button" @click.prevent="handleAgreeButtonClick">
         <md-icon style="color: green;">check</md-icon>
       </button>
@@ -17,7 +16,7 @@
 
 <script>
 export default {
-  name: "ApproveDelete",
+  name: "Approve",
   props: {
     description: String,
     handleCloseButtonClick: Function,
@@ -27,25 +26,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contacts {
-  &__delete-wrapper {
-    display: flex;
-    align-items: center;
-    min-width: 180px;
-    max-width: 200px;
-    min-height: 30px;
-    width: auto;
-    margin-right: 15px;
-    padding: 5px;
-    background-color: transparent;
-    border: 2px solid black;
-    border-radius: 5px;
+.approve {
+  display: flex;
+  align-items: center;
+  min-width: 180px;
+  min-height: 30px;
+  width: auto;
+  margin-left: auto;
+  padding: 5px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 5px;
 
-    p {
-      margin: 0;
-      font-size: 14px;
-      line-height: 16px;
-    }
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
   }
 
   &__buttons-wrapper {

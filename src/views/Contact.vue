@@ -1,5 +1,5 @@
 <template>
-  <div class="contact" v-if="currentContact">
+  <section class="contact" v-if="currentContact">
     <h2 class="contact__title">
       Подробная информация контакта {{ currentContact.content[0].value }}
     </h2>
@@ -8,8 +8,12 @@
     <ContactInfoForm :id="currentContact.id" :addContactInfo="addContactInfo" />
 
     <!-- Contact Info List -->
-    <ContactInfoList :content="currentContact.content" />
-  </div>
+    <ContactInfoList
+      :id="currentContact.id"
+      :content="currentContact.content"
+      :removeContactInfo="removeContactInfo"
+    />
+  </section>
 </template>
 
 <script>
@@ -24,7 +28,8 @@ export default {
   },
   props: {
     contacts: Array,
-    addContactInfo: Function
+    addContactInfo: Function,
+    removeContactInfo: Function
   },
   data() {
     return {
@@ -41,16 +46,14 @@ export default {
 
 <style lang="scss" scoped>
 .contact {
-  max-width: 600px;
-  width: 100%;
+  width: 50%;
   min-height: 400px;
   margin: 0 auto;
   padding-top: 20px;
-  background-color: lightgray;
 
   &__title {
     margin: 0;
-    padding-bottom: 40px;
+    padding-bottom: 15px;
   }
 }
 </style>

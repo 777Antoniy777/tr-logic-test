@@ -1,14 +1,15 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
+  <div id="app" class="main">
+    <div class="main__wrapper">
+      <router-view
+        :contacts="contacts"
+        :addContact="addContact"
+        :removeContact="removeContact"
+        :addContactInfo="addContactInfo"
+        :removeContactInfo="removeContactInfo"
+      />
+      <div class="main__decorate-wrapper"></div>
     </div>
-    <router-view
-      :contacts="contacts"
-      :addContact="addContact"
-      :removeContact="removeContact"
-      :addContactInfo="addContactInfo"
-    />
   </div>
 </template>
 
@@ -86,30 +87,49 @@ export default {
 
         content.push(newContactInfo);
       }
+    },
+    removeContactInfo(id, contentItemId) {
+      const contactInfo = this.contacts.find(elem => elem.id === id);
+      let { content } = contactInfo;
+      const newContent = content.filter(elem => elem.id !== contentItemId);
+      content = newContent;
     }
   }
 };
 </script>
 
 <style lang="scss">
+body {
+  display: flex;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  margin: auto;
   text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.main {
+  &__wrapper {
+    display: flex;
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 5px 20px 0 black;
+  }
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  &__decorate-wrapper {
+    width: 50%;
+    background-image: url("./assets/contact.svg");
+    background-size: 150px 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #59a5e0;
   }
 }
 </style>

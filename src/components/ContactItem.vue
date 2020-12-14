@@ -5,31 +5,35 @@
     </router-link>
 
     <div class="contacts__button-wrapper">
-      <!-- Approve Delete -->
-      <ApproveDelete
-        v-if="deleteStatus"
-        :handleCloseButtonClick="handleCloseButtonClick"
-        :handleAgreeButtonClick="handleAgreeButtonClick"
-      />
-
       <button
         type="button"
         aria-label="Удалить контакт"
-        @click.prevent="handleDeleteButtonClick"
+        data-value="delete"
+        data-description="Точно удалить?"
+        @click.prevent="handleButtonClick"
       >
         <md-icon>delete</md-icon>
       </button>
+    </div>
+
+    <div class="contacts__approve-wrapper" v-if="approveStatus">
+      <!-- Approve -->
+      <Approve
+        :description="description"
+        :handleCloseButtonClick="handleCloseButtonClick"
+        :handleAgreeButtonClick="handleAgreeButtonClick"
+      />
     </div>
   </li>
 </template>
 
 <script>
-import ApproveDelete from "@/components/ApproveDelete";
+import Approve from "@/components/Approve";
 
 export default {
   name: "ContactItem",
   components: {
-    ApproveDelete
+    Approve
   },
   props: {
     item: Object,
@@ -37,20 +41,29 @@ export default {
   },
   data() {
     return {
-      deleteStatus: false
+      approveStatus: false,
+      buttonData: "",
+      description: ""
     };
   },
   methods: {
-    handleDeleteButtonClick() {
-      this.deleteStatus = true;
+    handleButtonClick(evt) {
+      const target = evt.target;
+      const button = target.closest("button");
+      const dataValue = button.dataset.value;
+      const dataDescription = button.dataset.description;
+
+      this.buttonData = dataValue;
+      this.description = dataDescription;
+      this.approveStatus = true;
     },
     handleCloseButtonClick() {
-      this.deleteStatus = false;
+      this.approveStatus = false;
     },
     handleAgreeButtonClick() {
       this.removeContact(this.item.id);
 
-      this.deleteStatus = false;
+      this.approveStatus = false;
     },
     setPersonalContactLink(id) {
       return `/contact/${id}`;
@@ -65,6 +78,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     min-height: 70px;
     padding: 10px;
     border-bottom: 1px solid black;
@@ -93,6 +107,15 @@ export default {
       background-color: transparent;
       border: none;
       cursor: pointer;
+    }
+  }
+
+  &__approve-wrapper {
+    width: 100%;
+    margin-top: 10px;
+
+    .approve {
+      max-width: 200px;
     }
   }
 }

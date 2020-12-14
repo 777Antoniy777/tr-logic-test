@@ -2,7 +2,13 @@
   <div class="contact__list-wrapper">
     <ul class="contact__list">
       <!-- Contact Info Item -->
-      <ContactInfoItem v-for="item in content" :key="item.id" :item="item" />
+      <ContactInfoItem
+        v-for="item in content"
+        :key="item.id"
+        :id="id"
+        :item="item"
+        :removeContactInfo="removeContactInfo"
+      />
     </ul>
   </div>
 </template>
@@ -16,7 +22,9 @@ export default {
     ContactInfoItem
   },
   props: {
-    content: Array
+    id: Number,
+    content: Array,
+    removeContactInfo: Function
   }
 };
 </script>
@@ -24,6 +32,7 @@ export default {
 <style lang="scss" scoped>
 .contact {
   &__list-wrapper {
+    max-width: 350px;
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
