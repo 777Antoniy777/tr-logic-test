@@ -7,6 +7,7 @@
         :removeContact="removeContact"
         :addContactInfo="addContactInfo"
         :removeContactInfo="removeContactInfo"
+        :editContactInfo="editContactInfo"
       />
       <div class="main__decorate-wrapper"></div>
     </div>
@@ -26,6 +27,11 @@ export default {
               id: 1,
               name: "Имя",
               value: "Иван"
+            },
+            {
+              id: 2,
+              name: "Фамилия",
+              value: "Проскуряков"
             }
           ]
         },
@@ -61,6 +67,7 @@ export default {
           id: this.contacts[contactsLength - 1].id + 1,
           content: [
             {
+              id: 1,
               name: "name",
               value: name
             }
@@ -93,6 +100,15 @@ export default {
       let { content } = contactInfo;
       const newContent = content.filter(elem => elem.id !== contentItemId);
       content = newContent;
+    },
+    editContactInfo(id, contentItemId, ...rest) {
+      const contactInfo = this.contacts.find(elem => elem.id === id);
+      const { content } = contactInfo;
+      const contentItem = content.find(elem => elem.id === contentItemId);
+      const { name: newName, value: newValue } = rest;
+
+      contentItem.name = newName;
+      contentItem.value = newValue;
     }
   }
 };

@@ -8,6 +8,7 @@
         :id="id"
         :item="item"
         :removeContactInfo="removeContactInfo"
+        :editContactInfo="editContactInfo"
       />
     </ul>
   </div>
@@ -24,7 +25,8 @@ export default {
   props: {
     id: Number,
     content: Array,
-    removeContactInfo: Function
+    removeContactInfo: Function,
+    editContactInfo: Function
   }
 };
 </script>

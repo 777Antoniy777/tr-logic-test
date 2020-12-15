@@ -7,7 +7,13 @@
         <md-icon style="color: green;">check</md-icon>
       </button>
 
-      <button type="button" @click.prevent="handleCloseButtonClick">
+      <button
+        type="button"
+        v-if="
+          buttonData !== 'edit' || item.name !== name || item.value !== value
+        "
+        @click.prevent="handleCloseButtonClick"
+      >
         <md-icon style="color: red;">close</md-icon>
       </button>
     </div>
@@ -18,7 +24,11 @@
 export default {
   name: "Approve",
   props: {
+    buttonData: String,
     description: String,
+    name: String,
+    value: String,
+    item: Object,
     handleCloseButtonClick: Function,
     handleAgreeButtonClick: Function
   }

@@ -1,8 +1,26 @@
 <template>
   <li class="contact__item">
-    <div class="contact__info-wrapper">
+    <div class="contact__info-wrapper" v-if="buttonData !== 'edit'">
       <span class="contact__property">{{ item.name }}:</span>
       <span class="contact__value">{{ item.value }}</span>
+    </div>
+
+    <div class="contact__fields-wrapper" v-if="buttonData === 'edit'">
+      <input
+        type="text"
+        name="title"
+        aria-label="Введите новое название"
+        v-model="name"
+        @input="handleInputChange"
+      />
+
+      <input
+        type="text"
+        name="value"
+        aria-label="Введите новое значение"
+        v-model="value"
+        @input="handleInputChange"
+      />
     </div>
 
     <div class="contact__buttons-wrapper">
@@ -10,7 +28,7 @@
         type="button"
         aria-label="Редактировать контакт"
         data-value="edit"
-        data-description="Сохранить?"
+        data-description="Отменить редактирование?"
         @click.prevent="handleButtonClick"
       >
         <md-icon>edit</md-icon>
@@ -31,7 +49,11 @@
     <div class="contact__approve-wrapper" v-if="approveStatus">
       <!-- Approve -->
       <Approve
+        :buttonData="buttonData"
         :description="description"
+        :name="name"
+        :value="value"
+        :item="item"
         :handleCloseButtonClick="handleCloseButtonClick"
         :handleAgreeButtonClick="handleAgreeButtonClick"
       />
@@ -50,13 +72,16 @@ export default {
   props: {
     id: Number,
     item: Object,
-    removeContactInfo: Function
+    removeContactInfo: Function,
+    editContactInfo: Function
   },
   data() {
     return {
       approveStatus: false,
       buttonData: "",
-      description: ""
+      description: "",
+      name: this.item.name,
+      value: this.item.value
     };
   },
   methods: {
@@ -72,6 +97,8 @@ export default {
     },
     handleCloseButtonClick() {
       this.approveStatus = false;
+      this.buttonData = "";
+      this.description = "";
     },
     handleAgreeButtonClick() {
       if (this.buttonData === "delete") {
@@ -79,6 +106,19 @@ export default {
       }
 
       this.approveStatus = false;
+      this.buttonData = "";
+      this.description = "";
+    },
+    handleInputChange() {
+      if (this.buttonData === "edit") {
+        if (this.name !== this.item.name || this.value !== this.item.value) {
+          this.description = "Сохранить изменения?";
+        }
+
+        if (this.name === this.item.name && this.value === this.item.value) {
+          this.description = "Отменить редактирование?";
+        }
+      }
     }
   }
 };
@@ -105,21 +145,41 @@ export default {
       text-align: left;
 
       &:first-child {
-        padding-right: 10px;
+        padding-right: 5px;
         font-weight: 700;
       }
     }
   }
 
   &__info-wrapper,
-  &__buttons-wrapper {
+  &__buttons-wrapper,
+  &__fields-wrapper {
     display: flex;
     align-items: center;
-    width: 50%;
+  }
+
+  &__info-wrapper {
+    flex-wrap: wrap;
+    max-width: 210px;
+    width: 100%;
+    word-break: break-all;
+  }
+
+  &__fields-wrapper {
+    input {
+      max-width: 104px;
+      width: 100%;
+      height: 30px;
+
+      &:first-of-type {
+        margin-right: 5px;
+      }
+    }
   }
 
   &__buttons-wrapper {
     justify-content: flex-end;
+    margin-left: auto;
 
     button {
       width: 24px;
@@ -130,7 +190,7 @@ export default {
       cursor: pointer;
 
       &:nth-of-type(2) {
-        margin-left: 10px;
+        margin-left: 5px;
       }
     }
   }

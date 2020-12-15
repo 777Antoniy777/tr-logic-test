@@ -12,6 +12,7 @@
       :id="currentContact.id"
       :content="currentContact.content"
       :removeContactInfo="removeContactInfo"
+      :editContactInfo="editContactInfo"
     />
   </section>
 </template>
@@ -29,7 +30,8 @@ export default {
   props: {
     contacts: Array,
     addContactInfo: Function,
-    removeContactInfo: Function
+    removeContactInfo: Function,
+    editContactInfo: Function
   },
   data() {
     return {
