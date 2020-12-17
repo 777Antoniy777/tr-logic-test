@@ -102,13 +102,14 @@ export default {
       content = newContent;
     },
     editContactInfo(id, contentItemId, ...rest) {
+      console.log(44)
       const contactInfo = this.contacts.find(elem => elem.id === id);
       const { content } = contactInfo;
       const contentItem = content.find(elem => elem.id === contentItemId);
-      const { name: newName, value: newValue } = rest;
+      const [name, value] = rest;
 
-      contentItem.name = newName;
-      contentItem.value = newValue;
+      contentItem.name = name;
+      contentItem.value = value;
     }
   }
 };

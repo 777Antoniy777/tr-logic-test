@@ -1,11 +1,17 @@
 <template>
   <li class="contact__item">
-    <div class="contact__info-wrapper" v-if="buttonData !== 'edit'">
+    <div
+      class="contact__info-wrapper"
+      v-if="buttonData !== 'edit' && buttonData !== 'undo'"
+    >
       <span class="contact__property">{{ item.name }}:</span>
       <span class="contact__value">{{ item.value }}</span>
     </div>
 
-    <div class="contact__fields-wrapper" v-if="buttonData === 'edit'">
+    <div
+      class="contact__fields-wrapper"
+      v-if="buttonData === 'edit' || buttonData === 'undo'"
+    >
       <input
         type="text"
         name="title"
@@ -81,8 +87,36 @@ export default {
       buttonData: "",
       description: "",
       name: this.item.name,
-      value: this.item.value
+      value: this.item.value,
+      stateArr: []
     };
+  },
+  mounted() {
+    const data = this.$data;
+    const dataObj = {};
+
+    for (let key in data) {
+      const value = data[key];
+
+      if (key !== "stateArr") {
+        dataObj[key] = value;
+      }
+    }
+
+    this.stateArr.push(dataObj);
+  },
+  beforeUpdate() {
+    const data = this.$data;
+    const dataObj = {};
+
+    for (let key in data) {
+      const value = data[key];
+      if (key !== "stateArr") {
+        dataObj[key] = value;
+      }
+    }
+
+    this.stateArr.push(dataObj);
   },
   methods: {
     handleButtonClick(evt) {
@@ -94,8 +128,24 @@ export default {
       this.buttonData = dataValue;
       this.description = dataDescription;
       this.approveStatus = true;
+      this.name = this.item.name;
+      this.value = this.item.value;
     },
     handleCloseButtonClick() {
+      if (this.buttonData === "edit") {
+        this.buttonData = "undo";
+        this.description = "Отменить изменения?";
+
+        return;
+      }
+
+      if (this.buttonData === "undo") {
+        this.buttonData = "edit";
+        this.description = "Сохранить изменения?";
+
+        return;
+      }
+
       this.approveStatus = false;
       this.buttonData = "";
       this.description = "";
@@ -103,6 +153,18 @@ export default {
     handleAgreeButtonClick() {
       if (this.buttonData === "delete") {
         this.removeContactInfo(this.id, this.item.id);
+      }
+
+      if (
+        this.buttonData === "edit" &&
+        (this.name !== this.item.name || this.value !== this.item.value)
+      ) {
+        this.editContactInfo(this.id, this.item.id, this.name, this.value);
+      }
+
+      if (this.buttonData === "undo") {
+        this.name = this.item.name;
+        this.value = this.item.value;
       }
 
       this.approveStatus = false;
